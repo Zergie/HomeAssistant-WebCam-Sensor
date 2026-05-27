@@ -107,7 +107,12 @@ def compute_value(settings: Settings) -> float:
 
 def _build_client(settings: Settings) -> mqtt.Client:
     client_id = f"webcam-gauge-{os.getpid()}"
-    client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2, client_id=client_id, clean_session=True)
+    try:
+        # paho-mqtt >=2.x
+        client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2, client_id=client_id, clean_session=True)
+    except AttributeError:
+        # paho-mqtt 1.x (for example distro-packaged versions)
+        client = mqtt.Client(client_id=client_id, clean_session=True)
 
     if settings.mqtt_username:
         client.username_pw_set(settings.mqtt_username, settings.mqtt_password or None)

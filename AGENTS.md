@@ -10,7 +10,7 @@ Use this file as the canonical agent instruction entry point for future work in 
 
 - Core scripts: `download_image.py`, `prepare_image.py`, `process_image.py`.
 - Tests: `pytest` tests under `tests/`.
-- Home Assistant add-on scaffold: `ha-addon/webcam_sensor`.
+- Home Assistant add-on scaffold: `webcam_gauge_sensor`.
 
 ## Agent Behavior In This Repo
 
@@ -30,9 +30,9 @@ Use this file as the canonical agent instruction entry point for future work in 
 
 ## Add-on Notes
 
-- Add-on repository metadata: `ha-addon/repository.yaml`
+- Add-on repository metadata: `repository.yaml`
 - Add-on slug: `webcam_gauge_sensor`
-- Add-on runtime entrypoint: `ha-addon/webcam_sensor/run.py`
+- Add-on runtime entrypoint: `webcam_gauge_sensor/run.py`
 
 ## Update Checklist (when project files are added)
 
