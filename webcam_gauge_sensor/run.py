@@ -2,6 +2,7 @@
 import json
 import logging
 import os
+import socket
 import time
 from dataclasses import dataclass
 from pathlib import Path
@@ -126,6 +127,34 @@ def publish_value(client: mqtt.Client, settings: Settings, value: float) -> None
     result.wait_for_publish(timeout=5)
 
 
+def _connect_with_retry(client: mqtt.Client, settings: Settings) -> None:
+    retry_delay = 10
+    while True:
+        try:
+            client.connect(settings.mqtt_host, settings.mqtt_port, keepalive=30)
+            return
+        except socket.gaierror as exc:
+            _LOG.error(
+                "Cannot resolve MQTT host '%s:%s' (%s). "
+                "Set add-on option mqtt_host to a reachable broker hostname/IP "
+                "(for Home Assistant Mosquitto add-on usually 'core-mosquitto'). Retrying in %ss.",
+                settings.mqtt_host,
+                settings.mqtt_port,
+                exc,
+                retry_delay,
+            )
+        except OSError as exc:
+            _LOG.error(
+                "Cannot connect to MQTT broker at '%s:%s' (%s). Retrying in %ss.",
+                settings.mqtt_host,
+                settings.mqtt_port,
+                exc,
+                retry_delay,
+            )
+
+        time.sleep(retry_delay)
+
+
 def main() -> int:
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s: %(message)s")
 
@@ -133,7 +162,7 @@ def main() -> int:
     _LOG.info("Starting gauge publisher. topic=%s poll_interval=%ss", settings.mqtt_topic, settings.poll_interval)
 
     client = _build_client(settings)
-    client.connect(settings.mqtt_host, settings.mqtt_port, keepalive=30)
+    _connect_with_retry(client, settings)
     client.loop_start()
 
     try:

@@ -5,7 +5,7 @@ from pathlib import Path
 import cv2
 import pytest
 
-import process_image
+from webcam_gauge_sensor import process_image
 
 
 @pytest.fixture(scope="module")
@@ -67,7 +67,7 @@ def test_process_image_debug_subprocess_returns_success(repo_root: Path) -> None
     result = subprocess.run(
         [
             sys.executable,
-            "process_image.py",
+            "webcam_gauge_sensor/process_image.py",
             "--input",
             str(image_path),
             *POINT_ARGS,
@@ -91,7 +91,7 @@ def test_process_image_value_from_copied_fixture(repo_root: Path) -> None:
     result = subprocess.run(
         [
             sys.executable,
-            "process_image.py",
+            "webcam_gauge_sensor/process_image.py",
             "--input",
             str(image_path),
             *POINT_ARGS,

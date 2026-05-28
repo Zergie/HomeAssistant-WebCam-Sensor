@@ -1,4 +1,9 @@
+.env
 .venv/
 __pycache__/
-
-test.ipynb
+.pytest_cache/
+.vscode/
+.ipynb_checkpoints/
+*.pyc
+.DS_Store
+Thumbs.db

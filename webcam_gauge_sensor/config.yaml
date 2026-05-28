@@ -1,7 +1,7 @@
 name: WebCam Gauge Sensor
 slug: webcam_gauge_sensor
 description: Read an analog gauge from RTSP and publish the value to MQTT.
-version: "0.1.1"
+version: "0.1.2"
 url: https://github.com/Zergie/HomeAssistant-WebCam-Sensor
 arch:
   - aarch64
