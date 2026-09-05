@@ -27,6 +27,7 @@ Use this file as the canonical agent instruction entry point for future work in 
 	- `python download_image.py --rtsp-url "..." --output /tmp/frame.jpg`
 	- `python prepare_image.py --input /tmp/frame.jpg --output /tmp/image.jpg --x 835 --y 400 --radius 350 --sharpen 8.0`
 	- `python process_image.py --input /tmp/image.jpg --point "0.0,-150,210" --point "1.0,-197,280"`
+- Run the mouse-driven calibration GUI: `python calibrate_gui.py --input path/to/frame.jpg`
 
 ## Add-on Notes
 

@@ -1,4 +1,5 @@
 .env
+calibration-settings.yaml
 .venv/
 __pycache__/
 .pytest_cache/

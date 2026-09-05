@@ -25,7 +25,28 @@ Example Home Assistant view:
 
 ## Calibration Notebook
 
+The calibration GUI includes rotation (-180 to 180 degrees) and sharpen (0 to 20) sliders.
+The preview rotates and sharpens immediately; scale markers stay in their calibrated positions.
+The image fits the resized window while preserving its aspect ratio. Paste Home Assistant
+options into the settings box and click **Apply pasted options** to load and save them.
+The current camera frame remains in use when applying options; a changed camera URL is used
+on the next launch.
+It automatically saves settings to `calibration-settings.yaml` after edits and restores them
+on launch. This local file contains the full Home Assistant options, including credentials,
+and is excluded from Git. To import existing Home Assistant options, save them as YAML and run
+`python calibrate_gui.py --config path/to/options.yaml`. Copy config exports the full options
+with the edited calibration values. Install GUI dependencies with `pip install -r requirements.txt`.
+
 Use [calibrate.ipynb](calibrate.ipynb) to find and validate your gauge settings before finalizing add-on options.
+
+For mouse-driven calibration, either save a camera frame or set `RTSP_URL` as in the notebook, then run:
+
+```text
+python calibrate_gui.py --input path/to/frame.jpg
+python calibrate_gui.py
+```
+
+Drag the red center, green radius handle, or any yellow scale point. The tool loads the initial `x`, `y`, `radius`, and `points` from `webcam_gauge_sensor/config.yaml`, follows the notebook's download/prepare/process workflow, and shows a configuration block ready to copy into Home Assistant.
 
 When to use it:
 
